@@ -1,0 +1,33 @@
+@import '../../angular-material.theme';
+
+.responseTypes mat-card {
+  padding-bottom: 0px;
+  @include mat-elevation(7);
+  background: #F0F0F0;
+}
+
+.responseTypes {
+  margin: 16px;
+}
+
+.responseType {
+  padding: 16px;
+
+  h1 {
+    margin-bottom: 0px;
+  }
+
+  button {
+      h1 {
+          margin-bottom: 14px;
+      }
+  }
+
+}
+
+.name-input {
+  padding: 16px;
+  font-size: 20px;
+  width: 80%;
+  max-width: 100%;
+}

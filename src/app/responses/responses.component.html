@@ -1,0 +1,19 @@
+<div class="mat-typography responses" fxLayout="column" fxLayoutAlign="start stretch" fxFlex="auto">
+  <h1>Responses</h1>
+  <div *ngFor="let response of responses">
+    <mat-divider></mat-divider>
+    <div class="response" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
+      <h3>{{response.responseType}}</h3>
+      <h3>{{response.subject}}</h3>
+      <h3>{{response.timeStamp | date:'M/d/yyyy,  h:mm a'}}</h3>
+      <h3 *ngIf="response.closeStamp != 'null'">{{response.closeStamp | date:'M/d/yyyy, h:mm a'}}</h3>
+      <!-- <h3>{{response.timeDifference}}</h3> -->
+      <button *ngIf="response.closeStamp == 'null'" mat-icon-button color="primary" (click)="close(response)">
+        CLOSE
+      </button>
+      <button mat-icon-button color="warn" (click)="delete(response)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

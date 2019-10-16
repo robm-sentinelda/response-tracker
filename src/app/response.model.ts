@@ -3,7 +3,9 @@ export class Response {
     name: string;
     responseType: string;
     responseTypeId: string;
-    timeStamp: Date;
-    closeStamp: Date;
+    timeStamp: firebase.firestore.Timestamp;
+    timStampString: string;
+    closeStamp: firebase.firestore.Timestamp;
+    closeStampString: string;
     timeDifference: number;
 }

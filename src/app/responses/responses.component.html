@@ -1,19 +1,70 @@
 <div class="mat-typography responses" fxLayout="column" fxLayoutAlign="start stretch" fxFlex="auto">
   <h1>Responses</h1>
-  <div *ngFor="let response of responses">
+  <table mat-table class="response-table" [dataSource]="responses">
+
+    <ng-container matColumnDef="responseType">
+      <th mat-header-cell *matHeaderCellDef> Answered </th>
+      <td mat-cell *matCellDef="let response"> {{response.responseType}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="subject">
+      <th mat-header-cell *matHeaderCellDef> Subject </th>
+      <td mat-cell *matCellDef="let response" class="wrap"> {{response.subject}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="timeStampString">
+      <th mat-header-cell *matHeaderCellDef> Start Time </th>
+      <td mat-cell *matCellDef="let response"> {{response.timeStampString | date: 'M/d/yyyy, h:mm a'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="closeStampString">
+      <th mat-header-cell *matHeaderCellDef> Close Time </th>
+      <td mat-cell *matCellDef="let response">
+        <span
+          *ngIf="response.closeStampString != 'null'">{{response.closeStampString | date: 'M/d/yyyy, h:mm a'}}</span>
+        <button *ngIf="response.closeStampString == 'null'" mat-icon-button color="primary" (click)="close(response)">
+          CLOSE
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="timeDifference">
+      <th mat-header-cell *matHeaderCellDef> Resolved In </th>
+      <td mat-cell *matCellDef="let response">
+        <span
+          *ngIf="response.closeStampString != 'null' && response.timeDifference <= 1 && response.timeDifference != 0">
+          < 1 min</span> <span *ngIf="response.closeStampString != 'null' && response.timeDifference >= 1">
+            {{response.timeDifference | number: '1.0-1'}} min
+        </span></td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let response"><button mat-icon-button color="warn" (click)="delete(response)">
+          <mat-icon>delete</mat-icon>
+        </button></td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <!-- <div *ngFor="let response of responses">
     <mat-divider></mat-divider>
     <div class="response" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
       <h3>{{response.responseType}}</h3>
       <h3>{{response.subject}}</h3>
-      <h3>{{response.timeStamp | date:'M/d/yyyy,  h:mm a'}}</h3>
-      <h3 *ngIf="response.closeStamp != 'null'">{{response.closeStamp | date:'M/d/yyyy, h:mm a'}}</h3>
-      <!-- <h3>{{response.timeDifference}}</h3> -->
-      <button *ngIf="response.closeStamp == 'null'" mat-icon-button color="primary" (click)="close(response)">
-        CLOSE
-      </button>
-      <button mat-icon-button color="warn" (click)="delete(response)">
-        <mat-icon>delete</mat-icon>
-      </button>
+      <h3>{{response.timeStampString | date: 'M/d/yyyy, h:mm a'}}</h3>
+      <h3 *ngIf="response.closeStampString != 'null'">{{response.closeStampString | date:'M/d/yyyy, h:mm a'}}</h3>
+      <h3 *ngIf="response.closeStampString != 'null' && response.timeDifference >= 1">
+        {{response.timeDifference | number: '1.0-2'}} min</h3>
+      <h3 *ngIf="response.closeStampString != 'null' && response.timeDifference <= 1 && response.timeDifference != 0">
+        < 1 min</h3>
+        <button *ngIf="response.closeStampString == 'null'" mat-icon-button color="primary"
+          (click)="close(response)">
+          CLOSE
+          </button>
+          <button mat-icon-button color="warn" (click)="delete(response)">
+            <mat-icon>delete</mat-icon>
+          </button>
     </div>
-  </div>
+  </div> -->
 </div>

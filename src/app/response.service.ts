@@ -21,22 +21,19 @@ export class ResponseService {
     return this.firestore.collection('responses').add({
       responseType: responseType.responseTypeName,
       responseTypeId: responseType.id,
-      timeStamp: firebase.firestore.Timestamp.now().toDate().toString(),
+      timeStamp: firebase.firestore.Timestamp.now(),
+      timeStampString: firebase.firestore.Timestamp.now().toDate().toString(),
       subject: textInput,
-      closeStamp: 'null',
+      closeStampString: 'null',
       timeDifference: 0
     });
   }
 
   closeResponse(response: Response) {
     this.firestore.doc('responses/' + response.id).update({
-      closeStamp: firebase.firestore.Timestamp.now().toDate().toString()
-    });
-  }
-
-  updateTime(response: Response) {
-    this.firestore.doc('responses/' + response.id).update({
-      // timeDifference: response.timeStamp - response.closeStamp
+      closeStamp: firebase.firestore.Timestamp.now(),
+      closeStampString: firebase.firestore.Timestamp.now().toDate().toString(),
+      timeDifference: (firebase.firestore.Timestamp.now().seconds - response.timeStamp.seconds) / 60
     });
   }
 

@@ -15,6 +15,7 @@ export class ResponsesComponent implements OnInit {
   strings: string[];
   responseType: ResponseType;
   responseTypeName: string;
+  displayedColumns: string[] = ['responseType', 'subject', 'timeStampString', 'closeStampString', 'timeDifference', 'delete'];
   constructor(private responseService: ResponseService,
               private responseTypeService: ResponseTypeService) { }
 
@@ -29,13 +30,8 @@ export class ResponsesComponent implements OnInit {
     });
   }
 
-  closeStampToString(response: Response) {
-    return response.closeStamp.toString();
-  }
-
   close(response: Response) {
     this.responseService.closeResponse(response);
-    // this.responseService.updateTime(response);
   }
 
   update(response: Response) {
